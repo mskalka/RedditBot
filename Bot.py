@@ -3,20 +3,19 @@ import time
 
 
 YESTERDAY = time.time() - 86400  # 60*60*24 seconds before right now
-search_term = 'GGG'
+search_term = 'i'
 
 
 def main():
 
     r = praw.Reddit('orangebot')
-    sub = r.subreddit('pathofexile')
+    sub = r.subreddit('sailing')
 
     count = 0
 
     for post in get_todays(sub):
-        for comment in post.comments:
-            if search_term in comment.body:
-                count += 1
+        for comment in post.comments.list():
+            count += comment.body.count(search_term)
 
     print(count)
 
